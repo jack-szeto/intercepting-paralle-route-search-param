@@ -1,7 +1,8 @@
 import { CardGrid } from "@/components/card-grid";
-import { getPosts, PostSearchProps } from "@/actions/post";
+import { getPosts } from "@/actions/post";
+import { SearchProps } from "@/actions/_response";
 
-export const PostGridView = async (props: PostSearchProps) => {
+export const PostGridView = async (props: SearchProps) => {
   const response = await getPosts(props);
   return <CardGrid data={response.data} />;
 };

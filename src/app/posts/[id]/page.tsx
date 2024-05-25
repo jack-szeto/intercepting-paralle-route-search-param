@@ -10,12 +10,12 @@ const Page = async ({
     id: string;
   };
 }) => {
-  const post = await getPost(id);
+  const post = await getPost(Number(id));
   if (!post) throw new Error("Post not found");
   return (
     <div
       className={
-        "flex flex-col items-center justify-start h-screen w-full bg-gray-100 rounded-lg p-4 gap-4"
+        "flex flex-col items-center justify-start w-full bg-gray-100 rounded-lg p-4 gap-4"
       }
     >
       <PostView post={post} />

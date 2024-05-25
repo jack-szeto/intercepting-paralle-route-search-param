@@ -7,7 +7,7 @@ export const postData = cache(
     const data: Post[] = [];
     for (let i = 0; i < 100; i++) {
       const post: Post = {
-        id: faker.string.uuid(),
+        id: i + 1,
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         author: faker.person.fullName(),

@@ -1,22 +1,10 @@
 import { postData } from "@/mock/post-data";
 import { Post } from "@/types/post";
+import { PaginatedResponse, SearchProps } from "./_response";
 
-export type Pagination = {
-  page: number;
-  limit: number;
-};
+const DEFAULT_LIMIT = 10;
 
-export type PaginatedResponse<T> = {
-  data: T[];
-  total: number;
-};
-
-export type PostSearchProps = {
-  query?: string;
-  pagination?: Pagination;
-};
-
-export const getPosts = async ({ query, pagination }: PostSearchProps = {}) => {
+export const getPosts = async ({ query, pagination }: SearchProps = {}) => {
   const posts = (await postData()).filter((post) => {
     if (!query) return true;
     return (
@@ -27,9 +15,9 @@ export const getPosts = async ({ query, pagination }: PostSearchProps = {}) => {
   });
 
   const start =
-    (pagination?.page || 1) * (pagination?.limit || 10) -
-    (pagination?.limit || 10);
-  const end = start + (pagination?.limit || 10);
+    (pagination?.page || 1) * (pagination?.limit || DEFAULT_LIMIT) -
+    (pagination?.limit || DEFAULT_LIMIT);
+  const end = start + (pagination?.limit || DEFAULT_LIMIT);
 
   return {
     data: posts.slice(start, end),
@@ -37,7 +25,7 @@ export const getPosts = async ({ query, pagination }: PostSearchProps = {}) => {
   } as PaginatedResponse<Post>;
 };
 
-export const getPost = async (id: string) => {
+export const getPost = async (id: number) => {
   return (await postData()).find((post) => post.id === id);
 };
 
